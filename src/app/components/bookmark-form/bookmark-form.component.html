@@ -1,0 +1,86 @@
+ <div class="form-container">
+      <mat-card class="form-card">
+        <mat-card-header>
+          <mat-card-title>
+            <div class="header-content">
+              <button mat-icon-button (click)="goBack()" class="back-button">
+                <mat-icon>arrow_back</mat-icon>
+              </button>
+              <span>{{ isEditMode ? 'Edit Bookmark' : 'Create New Bookmark' }}</span>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <form [formGroup]="bookmarkForm" (ngSubmit)="onSubmit()" class="form">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Title</mat-label>
+              <input matInput formControlName="title" placeholder="Enter bookmark title">
+              <mat-error *ngIf="bookmarkForm.get('title')?.hasError('required')">
+                Title is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>URL</mat-label>
+              <input matInput formControlName="url" placeholder="https://example.com">
+              <mat-error *ngIf="bookmarkForm.get('url')?.hasError('required')">
+                URL is required
+              </mat-error>
+              <mat-error *ngIf="bookmarkForm.get('url')?.hasError('pattern')">
+                Please enter a valid URL
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Description</mat-label>
+              <textarea matInput 
+                        formControlName="description" 
+                        rows="4" 
+                        placeholder="Optional description of the bookmark">
+              </textarea>
+            </mat-form-field>
+
+            <div class="tags-section">
+              <mat-label class="tags-label">Tags</mat-label>
+              <mat-chip-grid #chipSet>
+                <mat-chip *ngFor="let tag of tags" 
+                          (removed)="removeTag(tag)"
+                          [removable]="true">
+                  {{ tag }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-grid>
+              <mat-form-field appearance="outline" class="full-width tag-input">
+                <mat-label>Add tags</mat-label>
+                <input matInput 
+                       #tagInput
+                       (matChipInputTokenEnd)="addTag($event)"
+                       [matChipInputFor]="chipSet"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       placeholder="Type and press Enter to add tags">
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-card-content>
+
+        <mat-card-actions class="form-actions">
+          <button mat-stroked-button 
+                  type="button" 
+                  (click)="goBack()"
+                  class="cancel-button">
+            Cancel
+          </button>
+          <button mat-raised-button 
+                  color="primary" 
+                  (click)="onSubmit()"
+                  [disabled]="bookmarkForm.invalid || (loading$ | async)"
+                  class="submit-button">
+            <mat-spinner *ngIf="loading$ | async" diameter="20"></mat-spinner>
+            <span *ngIf="!(loading$ | async)">
+              {{ isEditMode ? 'Update Bookmark' : 'Create Bookmark' }}
+            </span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>

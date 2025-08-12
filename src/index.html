@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bookmarker - Manage Your Bookmarks</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A modern bookmark management application built with Angular and Material Design" />
+    <base href="/">
+    
+    <!-- Material Design Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path fill=%22%233F51B5%22 d=%22M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z%22/></svg>">
+  </head>
+  <body class="mat-typography">
+    <app-root>
+      <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Roboto, sans-serif;">
+        <div style="text-align: center;">
+          <div style="width: 48px; height: 48px; border: 4px solid #e0e0e0; border-top: 4px solid #1976d2; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
+          <h2 style="margin: 0; color: #666;">Loading Bookmarker...</h2>
+        </div>
+      </div>
+      <style>
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
+    </app-root>
+  </body>
+</html>
